@@ -4,5 +4,4 @@
   $('.user input, .user button, .user-register-form, .login-form').live("click", function(e) {
     e.stopPropagation();
   });
-
 })(jQuery);
