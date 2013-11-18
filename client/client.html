@@ -1,0 +1,120 @@
+<head>
+  <title>Your app</title>
+</head>
+
+<body>
+  {{> header}}
+  <div class="container">
+    {{> input}}
+    {{> messages}}
+  </div>
+</body>
+
+<template name="header">
+  <nav class="navbar navbar-default">
+    <div class="nav pull-left">
+      <p class="navbar-text">Meteor Chat App</p>
+    </div>
+    </div>
+    <div class="nav pull-right">
+      {{> user_info}}
+    </div>
+  </nav>
+</template>
+
+<template name="user_info">
+  <ul class="nav navbar-nav">
+    {{#if currentUser}}
+      {{> user_logged_in}}
+    {{else}}
+      {{> user_logged_out}}
+    {{/if}}
+  </ul>
+</template>
+
+<template name="user_logged_in">
+  {{#if loggingIn}}
+    <li><a>Logging in...</a></li>
+  {{else}}
+    <li class="dropdown user">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        {{currentUser.username}}
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu user-menu">
+        <li><a>Account Settings</a></li>
+        <li class="divider"></li>
+        <li><a href="#" id="logout">Logout</a></li>
+      </ul>
+    </li>
+  {{/if}}
+</template>
+
+<template name="user_logged_out">
+  <li class="dropdown user">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      Register
+    </a>
+    <div class="dropdown-menu user-register-form">
+      {{> user_register_form}}
+    </div>
+  <li>
+  <li class="dropdown user">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      Login
+    </a>
+    <div class="dropdown-menu login-form">
+      {{> login_form}}
+    </div>
+  </li>
+</template>
+
+<template name="login_form">
+  <div class="form-group">
+    <input type="text" class="form-control" id="email" placeholder="E-Mail">
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" id="pass" placeholder="Password">
+  </div>
+  <button type="button" class="btn btn-default" id="login">Login</button>
+  {{#if error}}
+    <div class="login-error">{{error}}</div>
+    {{fadeout}}
+  {{/if}}
+</template>
+
+<template name="user_register_form">
+  <div class="form-group">
+    <input type="text" class="form-control" id="email" placeholder="E-Mail">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="user" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" id="pass" placeholder="Password">
+  </div>
+  <button type="button" class="btn btn-default" id="register">
+    Register
+  </button>
+  {{#if error}}
+    <div class="register-error">{{error}}</div>
+    {{fadeout}}
+  {{/if}}
+</template>
+
+<template name="messages">
+  <div class="messages row">
+    {{#each messages}}
+      <div class="message">
+          <strong>{{name}}:</strong> {{message}}<br>
+      </div>
+    {{/each}}
+  </div>
+</template>
+
+<template name="input">
+  <div class=" row input-group">
+    <span class="input-group-addon">Message</span>
+    <input type="text" class="form-control" id="message" placeholder="Enter your message">
+  </div>
+</template>
